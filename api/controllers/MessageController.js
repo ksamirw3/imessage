@@ -9,9 +9,48 @@ module.exports = {
 
 	index: function (req, res) {
 
-		Message.find().populate('comments').exec(function(err, messages) {
+		Message.find().populate('comments').populate('owner').exec(function(err, messages) {
 
-			return res.json(messages);
+			
+
+			async.each(messages, function (message, callback) {
+				
+
+				async.each(message.comments, function (comment, callback) {
+					// console.log('comment: ', comment);
+
+
+					var populateTasks = {
+                    user: function (cb) {
+                        User.findOne({ select: ['name'], id: comment.owner })
+                            .exec(function (err, result) {
+
+                            	// console.log('owner: ', result);
+                                cb(err, result);
+                            });
+	                    }
+	                }
+
+	                async.parallel(populateTasks, function (err, resultSet) {
+	                    if (err) { return next(err); }
+
+	                    comment.owner = resultSet.user;
+
+	                    callback();
+	                });
+
+				}, function (err) {
+                if (err) { return next(err); }
+
+                	callback();
+            	});	
+
+
+			}, function (err) {// final callback
+                if (err) { return next(err); }
+
+                return res.json(messages);
+            });
 
 		});
 
