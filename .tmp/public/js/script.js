@@ -232,9 +232,7 @@ app.config(function ($httpProvider) {
         scope:{
             message: '=data' 
         },
-        template: '{{ message.message }}\n\
-<ul><li class="" ng-repeat="comment in message.comments">{{ comment.comment }}</li></ul>\n\
-',
+        template: '<div> {{ message.message }} <comments data="message.comments"> <comments> </div>',
         link:function(scope,element,attributes){
 
             }
@@ -242,5 +240,21 @@ app.config(function ($httpProvider) {
     }
     
    app.directive('message', message); 
+}());
+
+(function () {
+    var comments = function(){
+    return{
+        scope:{
+            comments: '= data' 
+        },
+        template: '<ul><li class="" ng-repeat="comment in comments">{{ comment.comment }}</li></ul>',
+        link:function(scope,element,attributes){
+
+            }
+        }
+    }
+    
+   app.directive('comments', comments); 
 }());
 
