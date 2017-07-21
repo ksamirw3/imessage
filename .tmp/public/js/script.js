@@ -225,3 +225,22 @@ app.config(function ($httpProvider) {
     factory.$inject = ['appSettings'];
     app.factory('helper', factory);
 }());
+
+(function () {
+    var message = function(){
+    return{
+        scope:{
+            message: '=data' 
+        },
+        template: '{{ message.message }}\n\
+<ul><li class="" ng-repeat="comment in message.comments">{{ comment.comment }}</li></ul>\n\
+',
+        link:function(scope,element,attributes){
+
+            }
+        }
+    }
+    
+   app.directive('message', message); 
+}());
+

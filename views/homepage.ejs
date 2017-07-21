@@ -4,24 +4,12 @@
 
         <div class="col-xs-4">
             <div id="name-group" class="form-group">
-                <textarea class="form-control msg_box" id="msg_box" ng-model='msg_text' ng-keypress="send_msg($event)" placeholder="Type here and check the Title in Tab"></textarea>
+                <textarea class="form-control msg_box" id="msg_box" ng-model='msg_text' ng-keypress="send_msg($event)" placeholder="Type here and press enter"></textarea>
                 <input type='text' style='display:none' ng-model='selected_id' />
             </div>
 
-
-            <ul>
-            <li class="" ng-repeat="message in messages">
-
-                {{ message.message }} 
-                    <ul>
-                        <li class="" ng-repeat="comment in message.comments">
-                            {{ comment.comment }}
-                        </li>
-                    </ul>
-                
-                
-            </li>
-            </ul>
+            <div ng-repeat="message in messages">  <message data="message"></message>  </div>
+            
         </div>
         
         
