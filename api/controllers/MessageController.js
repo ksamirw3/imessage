@@ -9,7 +9,7 @@ module.exports = {
 
 	index: function (req, res) {
 
-		Message.find().populate('comments').populate('owner').exec(function(err, messages) {
+		Message.find().populate('comments').populate('owner').sort('createdAt DESC').exec(function(err, messages) {
 
 			
 
@@ -21,14 +21,14 @@ module.exports = {
 
 
 					var populateTasks = {
-                    user: function (cb) {
-                        User.findOne({ select: ['name'], id: comment.owner })
-                            .exec(function (err, result) {
+                        user: function (cb) {
+                            User.findOne({ select: ['name'], id: comment.owner })
+                                .exec(function (err, result) {
 
-                            	// console.log('owner: ', result);
-                                cb(err, result);
+                                    // console.log('owner: ', result);
+                                    cb(err, result);
                             });
-	                    }
+                            }
 	                }
 
 	                async.parallel(populateTasks, function (err, resultSet) {
@@ -73,8 +73,15 @@ module.exports = {
 
 		// The User was created successfully!
 		}else {
+                    
+                    Message.findOne(message.id).populate('comments').populate('owner').exec(function(err,message){
+                        
+                        sails.sockets.broadcast('feed', 'new_message', message);
+                        
+                        return res.json(message);	
+                    });
 		     
-		  return res.json(message);
+		  
 		}
 	     
 	     
@@ -89,7 +96,16 @@ module.exports = {
  
        
   },
+  
+    subscribe: function(req, res) {
+        if( ! req.isSocket) {
+          return res.badRequest();
+        }
 
+        sails.sockets.join(req.socket, 'feed');
+
+        return res.ok();
+      }
 	
 };
 

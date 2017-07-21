@@ -7,7 +7,7 @@
 
 module.exports = {
 
-	index: function (req, res) {
+    index: function (req, res) {
 
 //		User.find().populate('messages').exec(function(err, users) {
 //
@@ -15,25 +15,25 @@ module.exports = {
 //
 //		});
 
-            UserService.findAllUsers()
-            .then(users => {
-                sails.log.info('users: ', users);
+        UserService.findAllUsers()
+                .then(users => {
+                    sails.log.info('users: ', users);
 
-                return res.json(users);
-              })
+                    return res.json(users);
+                })
 
-            .catch(err => {
-                
-                sails.log.error('result: ', err);
-            });
+                .catch(err => {
 
-	},
+                    sails.log.error('result: ', err);
+                });
 
-	create: function (req, res) {
-	
-        if(req.method=="POST")
-	{
-	  
+    },
+
+    create: function (req, res) {
+
+        if (req.method == "POST")
+        {
+
 //	  console.log('user:', req.param("User"));
 //	   User.create(req.param("User")).exec(function(err,user){
 //	     
@@ -56,21 +56,47 @@ module.exports = {
 
 
             UserService.createUser(req.param("User"))
-            
-            .then(user => {
-                sails.log.info('user: ', user);
-                return res.json(user);
-            })
-              
-            .catch(err => {
-                
-                sails.log.error('result: ', err);
-            });
-	 
-	}
-       
-  },
 
-	
+                    .then(user => {
+                        sails.log.info('user: ', user);
+                        return res.json(user);
+                    })
+
+                    .catch(err => {
+
+                        sails.log.error('result: ', err);
+                    });
+
+        }
+
+    },
+
+    login: function (req, res) {
+        sails.log.info('login: ');
+
+        if (req.method == "POST")
+        {
+            
+            UserService.auth(req.param("User"))
+
+                    .then(user => {
+                        
+                        if(user){
+                            sails.log.info('user: ', user);
+                            return res.json(user);
+                        }else{
+                            sails.log.info('invalid user: ');
+                        }
+                    })
+
+                    .catch(err => {
+
+                        sails.log.error('result: ', err);
+                    });
+
+        }
+    }
+
+
 };
 

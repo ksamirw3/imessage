@@ -19,6 +19,12 @@ module.exports = {
       via: 'message'
     }
 
-  }
+  },
+  
+  
+//  afterCreate: function(message, cb) {
+//    sails.sockets.broadcast('feed', 'new_message', message);
+//    cb();
+//  }
 };
 

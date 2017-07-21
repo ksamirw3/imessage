@@ -14,6 +14,10 @@ module.exports = {
     createUser: function (user) {
        return User.create(user);
     },
+    
+    auth: function (user) {
+       return User.findOne({username:user['username']});
+    },
 
 };
 
