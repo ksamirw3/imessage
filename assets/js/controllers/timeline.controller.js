@@ -11,7 +11,8 @@
 
 
         $scope.$on('userLogged', function (event, data) {
-                console.log('userLogged', data);
+            console.log('userLogged', data);
+            
             timelineService.getMessages().then(function (response) {
                 var res = response.data;
                 if (res.error) {
@@ -34,7 +35,7 @@
                       });
                       
                 });
-        });
+            });
 
 
         });
@@ -49,7 +50,7 @@
 
             if (keyCode === 13) {
                 if ($scope.msg_text == '') {
-                    alert("Please Write Message.");
+                    helper.setMessage("Please Write Message.");
                     return false;
                 }
 
@@ -60,11 +61,17 @@
                 
                 timelineService.postMessages({Message:message}).then(function (response) {
                     var res = response.data;
-                    if (res.error) {
-                        console.log(res.error);
-                        return false;
-                    }
                     
+                    // show notification 
+                },
+                
+                function(err) {
+                    console.log('err', err);
+                    
+                    var err = (err.data) ? err.data : err;
+                    
+                    if(err.msg)
+                        helper.setMessage(err.msg);
                 });
 
 
