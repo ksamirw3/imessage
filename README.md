@@ -2,7 +2,7 @@
 
 a [Sails](http://sailsjs.org) application
 
-make sure you install docker-compose in your machen   "sudo apt-get install docker-compose"
+make sure you install docker-compose in your machine   "sudo apt-get install docker-compose"
 
 cd imessage folder the type "docker-compose up"
 
