@@ -30,13 +30,20 @@ module.exports = {
   },
 
    beforeCreate: function (values, cb) {
-
-    // Hash password
-    bcrypt.hash(values.password, 10, function(err, hash) {
-      if(err) return cb(err);
-      values.password = hash;
-      cb();
+       
+       User.findOneByUsername(values.username).exec(function(err, user) {
+        if (user)
+            return cb({ValidationError: {username: [{rule: 'taken'}]}});
+    
+       // Hash password
+        bcrypt.hash(values.password, 10, function(err, hash) {
+          if(err) return cb(err);
+          values.password = hash;
+          cb();
+        });
+        
     });
+
   }
 
 };

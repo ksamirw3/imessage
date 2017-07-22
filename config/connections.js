@@ -66,14 +66,19 @@ module.exports.connections = {
   // },
 
   mongodb: {
-    // url: 'mongodb://karim:karim@mongo:27019/imessage?authSource=admin',
     adapter: 'sails-mongo',
     
-    host: '172.23.0.1',
-    port: 27019,
-    user: '', //optional
-    password: '', //optional
-    database: 'imessage' //optional
+//    host: '172.23.0.1',
+//    port: 27019,
+//    user: '', //optional
+//    password: '', //optional
+//    database: 'imessage' //optional
+
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USERNAME, //optional
+    password: process.env.DB_PASSWORD, //optional
+    database: process.env.DB_DATABASE //optional
   },
 
   /***************************************************************************

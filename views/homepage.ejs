@@ -17,22 +17,61 @@
 
       </div>   
         
-        
-        <div class='rows' ng-controller="loginCtrl" ng-hide="me">
-                <form action="" class="login-page" name="login" novalidate>
-            <div >
-                <label for="">Username:</label>
-                <input type="text" class="form-control" ng-model="user.username" required>
-            </div>
-            <div class="input-full">
-                <label for="">Password:</label>
-                <input type="password" class="form-control" ng-model="user.password" required/>    
-            </div>
-            <div class="input-full">
-                <input type="button" value="Login" class="btn btn-primary pull-right" ng-click="doLogin()">
-            </div>
+        <h2> Login </h2>
+        <div class='rows' ng-controller="userCtrl" ng-hide="me">
+            <form name="loginForm" novalidate>
+                <div >
+                    <label for="">Username:</label>
+                    <input type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="3" ng-maxlength="8" required>
+                        <span ng-show="loginForm.username.$error.minlength">Username is too short.</span>
+                        <span ng-show="loginForm.username.$error.maxlength">Username is too long.</span>
+                        <span ng-show="loginForm.username.$error.required">Your Username is required.</span>
+
+                </div>
+                <div class="input-full">
+                    <label for="">Password:</label>
+                    <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="6" ng-maxlength="20" required/>
+                        <span ng-show="loginForm.password.$error.minlength">Password is too short.</span>
+                        <span ng-show="loginForm.password.$error.maxlength">Password is too long.</span>
+                        <span ng-show="loginForm.password.$error.required">Your Password is required.</span>
+                </div>
+                <div class="input-full">
+                    <input type="button" ng-disabled="loginForm.$invalid" value="Login" class="btn btn-primary pull-right" ng-click="doLogin()">
+                </div>
+            </form>
+        </div>
 
 
-        </form>
-            </div>
+
+        <h2> Register </h2>
+        <div class='rows' ng-controller="userCtrl" ng-hide="me">
+            <form name="registerForm" novalidate>
+                <div >
+                    <label for="">Username:</label>
+                    <input type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="3" ng-maxlength="8" required>
+                        <span ng-show="registerForm.username.$error.minlength">Username is too short.</span>
+                        <span ng-show="registerForm.username.$error.maxlength">Username is too long.</span>
+                        <span ng-show="registerForm.username.$error.required">Your Username is required.</span>
+
+                </div>
+                <div class="input-full">
+                    <label for="">Password:</label>
+                    <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="6" ng-maxlength="20" required/>
+                        <span ng-show="registerForm.password.$error.minlength">Password is too short.</span>
+                        <span ng-show="registerForm.password.$error.maxlength">Password is too long.</span>
+                        <span ng-show="registerForm.password.$error.required">Your Password is required.</span>
+                </div>
+                <div class="input-full">
+                    <label for="">E-mail:</label>
+                    <input type="email" name="email" class="form-control" ng-model="user.email" required/>
+                        <span ng-show="registerForm.email.$error.required">Your E-mail is required.</span>
+                        <span  class="error" ng-show="registerForm.email.$error.email">Your E-mail Not valid.</span>
+                </div>
+                <div class="input-full">
+                    <input type="button" ng-disabled="registerForm.$invalid" value="Register" class="btn btn-primary pull-right" ng-click="doRegister()">
+                </div>
+            </form>
+        </div>
+
+
     </div>

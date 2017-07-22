@@ -12,11 +12,11 @@ services:
     depends_on:
      - mongo  
     environment:
-      - "CLIENT_MONGO_HOST=mongo"
-      - "MONGO_PORT=27019"
-      - "CLIENT_DB_DATABASE=imessage"
-      - "CLIENT_MONGO_USERNAME=karim"
-      - "CLIENT_MONGO_PASSWORD=karim"
+      - "DB_HOST=172.23.0.1"
+      - "DB_PORT=27019"
+      - "DB_DATABASE=imessage"
+      - "DB_USERNAME="
+      - "DB_PASSWORD="
     ports:
       - 1337:1337
       

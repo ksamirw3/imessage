@@ -33,28 +33,6 @@ module.exports = {
 
         if (req.method == "POST")
         {
-
-//	  console.log('user:', req.param("User"));
-//	   User.create(req.param("User")).exec(function(err,user){
-//	     
-//	      
-//	      // Error handling
-//		if (err) {
-//		//  return console.log(err);
-//
-//		console.log(err);
-//		    res.send("Error");
-//
-//		// The User was created successfully!
-//		}else {
-//		     
-//		  return res.json(user);
-//		}
-//	     
-//	     
-//	  });
-
-
             UserService.createUser(req.param("User"))
 
                     .then(user => {
@@ -65,6 +43,7 @@ module.exports = {
                     .catch(err => {
 
                         sails.log.error('result: ', err);
+                        res.json({msg:'username already taken'}, 400);
                     });
 
         }
@@ -72,8 +51,7 @@ module.exports = {
     },
 
     login: function (req, res) {
-        sails.log.info('login: ');
-
+        
         if (req.method == "POST")
         {
             
@@ -86,12 +64,14 @@ module.exports = {
                             return res.json(user);
                         }else{
                             sails.log.info('invalid user: ');
+                            res.json({msg:'Invalid Username'}, 400);
                         }
                     })
 
                     .catch(err => {
 
                         sails.log.error('result: ', err);
+                        res.serverError('UNHANDLED_ERROR');
                     });
 
         }
