@@ -31,8 +31,8 @@ http://localhost:1337
 
 `{`
   `"User":{`
-    `"username": "karim66",`
-    `"password": "pass"`
+    `"username": "user1",`
+    `"password": "123456"`
   `}`
 `}`
 
