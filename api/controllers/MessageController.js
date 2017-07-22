@@ -22,7 +22,7 @@ module.exports = {
 
 					var populateTasks = {
                         user: function (cb) {
-                            User.findOne({ select: ['name'], id: comment.owner })
+                            User.findOne({ select: ['username'], id: comment.owner })
                                 .exec(function (err, result) {
 
                                     // console.log('owner: ', result);
